@@ -8,8 +8,10 @@ setup(
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     url="https://github.com/yourusername/insurance-fraud-detection",
-    packages=find_packages(where="src"),
-    package_dir={"": "src"},
+    # This repo uses `src/` as an actual top-level Python package (i.e. `import src...`).
+    # That allows relative imports inside `src/*` modules (e.g. `from ..utils...`) to work
+    # when running entrypoints like `python -m src.api.app`.
+    packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
