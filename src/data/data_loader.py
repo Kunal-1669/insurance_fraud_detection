@@ -1,12 +1,26 @@
 """Data loading utilities."""
 
+from __future__ import annotations
+
 import pandas as pd
 import numpy as np
 from pathlib import Path
 from typing import Tuple, Optional
 import logging
 
-from ..utils.config import Config
+# Allow running this file both as a module (`python -m src.data.data_loader`)
+# and as a script (`python src/data/data_loader.py`).
+if __package__ in (None, ""):
+    import sys as _sys
+    from pathlib import Path as _Path
+
+    _repo_root = _Path(__file__).resolve().parents[2]  # .../insurance_fraud_detection
+    if str(_repo_root) not in _sys.path:
+        _sys.path.insert(0, str(_repo_root))
+
+    from src.utils.config import Config  # type: ignore
+else:
+    from ..utils.config import Config
 
 logger = logging.getLogger(__name__)
 
