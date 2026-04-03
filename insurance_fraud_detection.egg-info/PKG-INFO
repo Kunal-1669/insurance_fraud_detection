@@ -1,0 +1,51 @@
+Metadata-Version: 2.1
+Name: insurance_fraud_detection
+Version: 0.0.0
+Summary: Insurance Fraud Detection System
+Home-page: https://github.com/yourusername/insurance-fraud-detection
+Author: Kunal Inglunkar
+Author-email: kunalinglunkar@gmail.com
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: pandas>=2.0.0
+Requires-Dist: numpy>=1.24.0
+Requires-Dist: scikit-learn>=1.3.0
+Requires-Dist: xgboost>=2.0.0
+Requires-Dist: lightgbm>=4.0.0
+Requires-Dist: mlflow>=2.9.0
+Requires-Dist: fastapi>=0.100.0
+Requires-Dist: uvicorn>=0.23.0
+Requires-Dist: pydantic>=2.0.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.4.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.1.0; extra == "dev"
+Requires-Dist: black>=23.0.0; extra == "dev"
+Requires-Dist: flake8>=6.0.0; extra == "dev"
+Requires-Dist: isort>=5.12.0; extra == "dev"
+Requires-Dist: mypy>=1.5.0; extra == "dev"
+
+# Insurance Fraud Detection
+
+MLE Portfolio Project - Project structure initialized
+
+## Running modules (fixes relative import errors)
+
+If you see:
+
+`ImportError: attempted relative import with no known parent package`
+
+run entrypoints as modules from the repo root:
+
+```bash
+python -m src.api.app
+```
+
+Or run the API via Uvicorn:
+
+```bash
+uvicorn src.api.app:app --reload --port 8000
+```
+

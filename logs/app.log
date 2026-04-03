@@ -1,0 +1,9 @@
+2026-01-28 14:22:46,799 - src.utils.config - INFO - Logging configured successfully
+2026-01-28 14:22:47,942 - matplotlib - WARNING - /Users/kunal/.matplotlib is not a writable directory
+2026-01-28 14:22:47,943 - matplotlib - WARNING - Matplotlib created a temporary cache directory at /var/folders/hl/tnk3d39n15x2x88v1c_90jlc0000gn/T/matplotlib-nsi42r8v because there was an issue with the default path (/Users/kunal/.matplotlib); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+2026-01-28 14:29:14,954 - src.utils.config - INFO - Logging configured successfully
+2026-01-28 14:29:15,459 - src.utils.config - INFO - Logging configured successfully
+2026-01-28 14:29:15,521 - src.utils.config - INFO - Configuration loaded from /Users/kunal/Desktop/insurance_fraud_detection/configs/model_config.yaml
+2026-01-28 14:29:15,521 - src.utils.config - INFO - Logging configured successfully
+2026-01-28 14:29:15,535 - src.utils.config - INFO - Configuration loaded from /Users/kunal/Desktop/insurance_fraud_detection/configs/model_config.yaml
+2026-01-28 14:29:15,536 - src.api.app - WARNING - No trained model found. Train a model first.

@@ -1,0 +1,185 @@
+# NOTE:
+# This file exists because code expects `configs/model_config.yaml`,
+# but the repository currently had `model_config.yamal` (typo).
+# Keep these files in sync if you edit config values.
+
+# Model Configuration
+model:
+  name: "fraud_detection"
+  version: "1.0.0"
+  type: "classification"
+
+# Data Configuration
+data:
+  raw_path: "data/raw/insurance_fraud_data.csv"
+  processed_path: "data/processed/processed_data.csv"
+  features_path: "data/features/feature_engineered_data.csv"
+  test_size: 0.2
+  val_size: 0.1
+  random_state: 42
+
+# Feature Engineering
+features:
+  numerical_features:
+    - age_of_driver
+    - safety_rating
+    - annual_income
+    - liab_prct
+    - age_of_vehicle
+    - vehicle_price
+    - total_claim
+    - injury_claim
+    - policy deductible
+    - annual premium
+    - days open
+    - form defects
+    - past_num_of_claims
+
+  categorical_features:
+    - gender
+    - marital_status
+    - property_status
+    - claim_day_of_week
+    - accident_site
+    - channel
+    - vehicle_category
+    - vehicle_color
+
+  binary_features:
+    - high_education
+    - address_change
+    - witness_present
+    - police_report
+
+  datetime_features:
+    - claim_date
+
+  target: "fraud reported"
+
+  engineering:
+    create_interactions: true
+    create_ratios: true
+    create_temporal_features: true
+    polynomial_degree: 2
+
+# Model Training
+training:
+  models:
+    - xgboost
+    - lightgbm
+    - catboost
+
+  xgboost:
+    n_estimators: 100
+    max_depth: 6
+    learning_rate: 0.1
+    subsample: 0.8
+    colsample_bytree: 0.8
+    objective: "binary:logistic"
+    eval_metric: "auc"
+    early_stopping_rounds: 10
+
+  lightgbm:
+    n_estimators: 100
+    max_depth: 6
+    learning_rate: 0.1
+    num_leaves: 31
+    subsample: 0.8
+    colsample_bytree: 0.8
+    objective: "binary"
+    metric: "auc"
+    early_stopping_rounds: 10
+
+  catboost:
+    iterations: 100
+    depth: 6
+    learning_rate: 0.1
+    loss_function: "Logloss"
+    eval_metric: "AUC"
+    early_stopping_rounds: 10
+    verbose: False
+
+  cv_folds: 5
+  stratified: true
+
+  # Handle class imbalance
+  imbalance_strategy: "smote"  # Options: smote, class_weight, both, none
+  smote_sampling_strategy: 0.5
+
+# Hyperparameter Optimization
+hyperparameter_tuning:
+  enabled: true
+  method: "optuna"  # Options: optuna, grid_search, random_search
+  n_trials: 50
+  timeout: 3600  # seconds
+
+  search_space:
+    xgboost:
+      max_depth: [3, 4, 5, 6, 7, 8]
+      learning_rate: [0.01, 0.05, 0.1, 0.2]
+      n_estimators: [50, 100, 200, 300]
+      subsample: [0.6, 0.7, 0.8, 0.9, 1.0]
+      colsample_bytree: [0.6, 0.7, 0.8, 0.9, 1.0]
+      min_child_weight: [1, 3, 5, 7]
+      gamma: [0, 0.1, 0.2, 0.3]
+
+    lightgbm:
+      max_depth: [3, 4, 5, 6, 7, 8]
+      learning_rate: [0.01, 0.05, 0.1, 0.2]
+      n_estimators: [50, 100, 200, 300]
+      num_leaves: [15, 31, 63, 127]
+      subsample: [0.6, 0.7, 0.8, 0.9, 1.0]
+      colsample_bytree: [0.6, 0.7, 0.8, 0.9, 1.0]
+      min_child_samples: [5, 10, 20, 30]
+
+# Evaluation Metrics
+evaluation:
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1
+    - roc_auc
+    - pr_auc
+    - confusion_matrix
+
+  threshold_optimization: true
+  threshold_metric: "f1"  # Metric to optimize threshold for
+
+  # Business metrics
+  false_positive_cost: 100  # Cost of investigating legitimate claim
+  false_negative_cost: 10000  # Cost of missing fraudulent claim
+
+# MLflow Configuration
+mlflow:
+  tracking_uri: "mlruns"
+  experiment_name: "insurance_fraud_detection"
+  run_name_prefix: "fraud_model"
+  artifact_location: "models"
+  log_models: true
+  log_artifacts: true
+
+# API Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 4
+  reload: false
+  log_level: "info"
+
+# Monitoring
+monitoring:
+  enabled: true
+  drift_detection: true
+  performance_tracking: true
+  log_predictions: true
+  alert_thresholds:
+    accuracy_drop: 0.05
+    data_drift_score: 0.1
+
+# Logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/app.log"
+

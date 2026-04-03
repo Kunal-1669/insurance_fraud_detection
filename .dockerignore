@@ -1,0 +1,13 @@
+.git
+.DS_Store
+__pycache__
+*.pyc
+*.pyo
+*.egg-info
+.pytest_cache
+.mypy_cache
+notebooks/
+docs/
+tests/
+*.md
+.env
